@@ -14,26 +14,26 @@
 
 
 typedef struct {
-    size_t      len;
-    u_char     *data;
+    size_t len;
+    u_char *data;
 } ngx_str_t;
 
 
 typedef struct {
-    ngx_str_t   key;
-    ngx_str_t   value;
+    ngx_str_t key;
+    ngx_str_t value;
 } ngx_keyval_t;
 
 
 typedef struct {
-    unsigned    len:28;
+    unsigned len:28;
 
-    unsigned    valid:1;
-    unsigned    no_cacheable:1;
-    unsigned    not_found:1;
-    unsigned    escape:1;
+    unsigned valid:1;
+    unsigned no_cacheable:1;
+    unsigned not_found:1;
+    unsigned escape:1;
 
-    u_char     *data;
+    u_char *data;
 } ngx_variable_value_t;
 
 
@@ -64,19 +64,25 @@ size_t ngx_strnlen(u_char *p, size_t n);
 
 #define ngx_strchr(s1, c)   strchr((const char *) s1, (int) c)
 
-static ngx_inline u_char *
-ngx_strlchr(u_char *p, u_char *last, u_char c)
+static ngx_inline u_char
+*
+ngx_strlchr(u_char
+*p,
+u_char *last, u_char
+c)
 {
-    while (p < last) {
+while (p < last) {
 
-        if (*p == c) {
-            return p;
-        }
+if (*p == c) {
+return
+p;
+}
 
-        p++;
-    }
+p++;
+}
 
-    return NULL;
+return
+NULL;
 }
 
 
@@ -109,7 +115,7 @@ void *ngx_memcpy(void *dst, const void *src, size_t n);
 #endif
 
 
-#if ( __INTEL_COMPILER >= 800 )
+#if (__INTEL_COMPILER >= 800)
 
 /*
  * the simple inline cycle copies the variable length strings up to 16
@@ -149,35 +155,65 @@ ngx_copy(u_char *dst, u_char *src, size_t len)
 
 
 u_char *ngx_cpystrn(u_char *dst, u_char *src, size_t n);
+
 u_char *ngx_pstrdup(ngx_pool_t *pool, ngx_str_t *src);
-u_char * ngx_cdecl ngx_sprintf(u_char *buf, const char *fmt, ...);
-u_char * ngx_cdecl ngx_snprintf(u_char *buf, size_t max, const char *fmt, ...);
-u_char * ngx_cdecl ngx_slprintf(u_char *buf, u_char *last, const char *fmt,
-    ...);
+
+u_char *ngx_cdecl
+ngx_sprintf(u_char
+*buf,
+const char *fmt, ...
+);
+u_char *ngx_cdecl
+ngx_snprintf(u_char
+*buf,
+size_t max,
+const char *fmt, ...
+);
+u_char *ngx_cdecl
+ngx_slprintf(u_char
+*buf,
+u_char *last,
+const char *fmt,
+...
+);
+
 u_char *ngx_vslprintf(u_char *buf, u_char *last, const char *fmt, va_list args);
+
 #define ngx_vsnprintf(buf, max, fmt, args)                                   \
     ngx_vslprintf(buf, buf + (max), fmt, args)
 
 ngx_int_t ngx_strcasecmp(u_char *s1, u_char *s2);
+
 ngx_int_t ngx_strncasecmp(u_char *s1, u_char *s2, size_t n);
 
 u_char *ngx_strnstr(u_char *s1, char *s2, size_t n);
 
 u_char *ngx_strstrn(u_char *s1, char *s2, size_t n);
+
 u_char *ngx_strcasestrn(u_char *s1, char *s2, size_t n);
+
 u_char *ngx_strlcasestrn(u_char *s1, u_char *last, u_char *s2, size_t n);
 
 ngx_int_t ngx_rstrncmp(u_char *s1, u_char *s2, size_t n);
+
 ngx_int_t ngx_rstrncasecmp(u_char *s1, u_char *s2, size_t n);
+
 ngx_int_t ngx_memn2cmp(u_char *s1, u_char *s2, size_t n1, size_t n2);
+
 ngx_int_t ngx_dns_strcmp(u_char *s1, u_char *s2);
+
 ngx_int_t ngx_filename_cmp(u_char *s1, u_char *s2, size_t n);
 
 ngx_int_t ngx_atoi(u_char *line, size_t n);
+
 ngx_int_t ngx_atofp(u_char *line, size_t n, size_t point);
+
 ssize_t ngx_atosz(u_char *line, size_t n);
+
 off_t ngx_atoof(u_char *line, size_t n);
+
 time_t ngx_atotm(u_char *line, size_t n);
+
 ngx_int_t ngx_hextoi(u_char *line, size_t n);
 
 u_char *ngx_hex_dump(u_char *dst, u_char *src, size_t len);
@@ -187,12 +223,17 @@ u_char *ngx_hex_dump(u_char *dst, u_char *src, size_t len);
 #define ngx_base64_decoded_length(len)  (((len + 3) / 4) * 3)
 
 void ngx_encode_base64(ngx_str_t *dst, ngx_str_t *src);
+
 void ngx_encode_base64url(ngx_str_t *dst, ngx_str_t *src);
+
 ngx_int_t ngx_decode_base64(ngx_str_t *dst, ngx_str_t *src);
+
 ngx_int_t ngx_decode_base64url(ngx_str_t *dst, ngx_str_t *src);
 
 uint32_t ngx_utf8_decode(u_char **p, size_t n);
+
 size_t ngx_utf8_length(u_char *p, size_t n);
+
 u_char *ngx_utf8_cpystrn(u_char *dst, u_char *src, size_t n, size_t len);
 
 
@@ -208,26 +249,31 @@ u_char *ngx_utf8_cpystrn(u_char *dst, u_char *src, size_t n, size_t len);
 #define NGX_UNESCAPE_REDIRECT  2
 
 uintptr_t ngx_escape_uri(u_char *dst, u_char *src, size_t size,
-    ngx_uint_t type);
+                         ngx_uint_t type);
+
 void ngx_unescape_uri(u_char **dst, u_char **src, size_t size, ngx_uint_t type);
+
 uintptr_t ngx_escape_html(u_char *dst, u_char *src, size_t size);
+
 uintptr_t ngx_escape_json(u_char *dst, u_char *src, size_t size);
 
 
 typedef struct {
-    ngx_rbtree_node_t         node;
-    ngx_str_t                 str;
+    ngx_rbtree_node_t node;
+    ngx_str_t str;
 } ngx_str_node_t;
 
 
 void ngx_str_rbtree_insert_value(ngx_rbtree_node_t *temp,
-    ngx_rbtree_node_t *node, ngx_rbtree_node_t *sentinel);
+                                 ngx_rbtree_node_t *node, ngx_rbtree_node_t *sentinel);
+
 ngx_str_node_t *ngx_str_rbtree_lookup(ngx_rbtree_t *rbtree, ngx_str_t *name,
-    uint32_t hash);
+                                      uint32_t hash);
 
 
 void ngx_sort(void *base, size_t n, size_t size,
-    ngx_int_t (*cmp)(const void *, const void *));
+              ngx_int_t (*cmp)(const void *, const void *));
+
 #define ngx_qsort             qsort
 
 
